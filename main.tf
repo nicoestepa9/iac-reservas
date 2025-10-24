@@ -1,16 +1,17 @@
-# Proyecto Railway de prueba
-resource "railway_project" "test_project" {
-  name        = "terraform-test-api"
-  description = "Proyecto de prueba creado con Terraform"
+terraform {
+  required_providers {
+    railway = {
+      source  = "terraform-community-providers/railway"
+      version = "0.5.1" # Usa la última versión disponible
+    }
+  }
 }
 
-# Servicio dentro del proyecto
-resource "railway_service" "api_service" {
-  project_id = railway_project.test_project.id
-  name       = "api-test-service"
-  template   = "node"
+provider "railway" {
+  token = var.railway_token
+}
 
-  variables = {
-    PORT = "8080"
-  }
+resource "railway_service" "mi_servicio" {
+  project_id = var.project_id
+  name       = "mi-servicio"
 }
